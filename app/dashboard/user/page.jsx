@@ -1,20 +1,23 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../../context/AuthContext';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import api from '../../../lib/api';
 import LoadingSpinner from '../../../components/LoadingSpinner';
 import { Crown, ShoppingBag, Settings, User as UserIcon, Camera, PackageOpen, CreditCard } from 'lucide-react';
 import Link from 'next/link';
 
 export default function UserDashboard() {
-  const { user, setUser } = useAuth();
+  const { user, setUser, loading: authLoading } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
 
   useEffect(() => {
+    if (authLoading) return;
+    
     if (!user) {
       router.push('/login');
       return;
@@ -24,8 +27,26 @@ export default function UserDashboard() {
       return;
     }
 
+    const handleStripeSuccess = async () => {
+      const success = searchParams.get('success');
+      const session_id = searchParams.get('session_id');
+      const artworkId = searchParams.get('artworkId');
+      const tier = searchParams.get('tier');
+
+      if (success === 'true' && session_id) {
+        try {
+          await api.post('/payments/success', { session_id, artworkId, tier });
+          // Optional: clear URL parameters to prevent re-triggering
+          router.replace('/dashboard/user');
+        } catch (err) {
+          console.error('Failed to process payment success', err);
+        }
+      }
+    };
+
     const fetchHistory = async () => {
       try {
+        await handleStripeSuccess();
         const res = await api.get('/payments/history');
         setHistory(res.data);
       } catch (err) {
@@ -36,7 +57,7 @@ export default function UserDashboard() {
     };
 
     fetchHistory();
-  }, [user, router]);
+  }, [user, authLoading, router, searchParams]);
 
   const handleSubscription = async (tier) => {
     try {
