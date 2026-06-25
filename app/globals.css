@@ -5,7 +5,7 @@
 
 :root {
   --background: #f8fafc;
-  --foreground: #0f172a;
+  --foreground: #09090b;
 }
 
 @theme inline {
@@ -17,8 +17,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0f172a;
-    --foreground: #f8fafc;
+    --background: #09090b; /* zinc-950 */
+    --foreground: #fafafa; /* zinc-50 */
   }
 }
 
@@ -35,21 +35,59 @@ h1, h2, h3, h4, h5, h6, .font-outfit {
 }
 
 /* Premium Utilities */
-.glass-effect {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
 }
 
-.dark .glass-effect {
-  background: rgba(15, 23, 42, 0.4);
+.dark .glass-panel {
+  background: rgba(24, 24, 27, 0.6); /* zinc-900 with opacity */
   border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.bento-card {
+  @apply rounded-3xl overflow-hidden relative transition-all duration-300;
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+}
+
+.dark .bento-card {
+  background: linear-gradient(145deg, rgba(24,24,27,0.8) 0%, rgba(9,9,11,1) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.bento-card:hover {
+  @apply transform -translate-y-1 shadow-xl shadow-purple-500/10;
+  border-color: rgba(168, 85, 247, 0.2);
 }
 
 .text-gradient {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-image: linear-gradient(to right, #c084fc, #ec4899);
+  background-image: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+}
+
+.glow-border {
+  position: relative;
+}
+.glow-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(to right, #a855f7, #ec4899);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.glow-border:hover::before {
+  opacity: 1;
 }
