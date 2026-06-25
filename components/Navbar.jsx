@@ -29,12 +29,9 @@ export default function Navbar() {
   };
 
   return (
-    <div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'py-2' : 'py-4'}`}>
-      <div className="absolute inset-0 pointer-events-none">
-        <div className={`absolute inset-0 bg-white/70 dark:bg-zinc-950/70 backdrop-blur-xl border-b border-zinc-200/50 dark:border-zinc-800/50 transition-all duration-500 ${scrolled ? 'opacity-100 shadow-lg' : 'opacity-0'}`} />
-      </div>
-      <nav className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 transition-all duration-500">
-        <div className="flex justify-between h-14 items-center rounded-2xl bg-white/40 dark:bg-zinc-900/40 backdrop-blur-lg border border-white/20 dark:border-zinc-700/30 px-6 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
+    <div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-white/70 dark:bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-200 dark:border-zinc-800 ${scrolled ? 'shadow-md py-1' : 'py-3'}`}>
+      <nav className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="flex justify-between h-14 items-center">
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center gap-2.5 text-2xl font-black font-outfit text-zinc-900 dark:text-white group">
               <div className="p-1.5 bg-purple-100 dark:bg-purple-500/20 rounded-lg group-hover:bg-purple-200 dark:group-hover:bg-purple-500/30 transition-colors">
@@ -103,7 +100,7 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {isOpen && (
-          <div className="md:hidden absolute top-full left-4 right-4 mt-2 p-3 rounded-2xl bg-white/90 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200/50 dark:border-zinc-700/50 shadow-xl animate-in slide-in-from-top-4 fade-in-0 zoom-in-95">
+          <div className="md:hidden absolute top-full left-4 right-4 mt-2 p-3 rounded-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 shadow-xl animate-in slide-in-from-top-4 fade-in-0 zoom-in-95">
             <div className="flex flex-col gap-1">
               <Link 
                 href="/" 
