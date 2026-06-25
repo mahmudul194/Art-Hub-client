@@ -37,7 +37,12 @@ function UserDashboardContent() {
       if (success === 'true' && session_id) {
         try {
           await api.post('/payments/success', { session_id, artworkId, tier });
-          // Optional: clear URL parameters to prevent re-triggering
+          
+          // Fetch updated user profile to instantly show new limits and tier
+          const profileRes = await api.get('/users/profile');
+          setUser(profileRes.data);
+
+          // clear URL parameters to prevent re-triggering
           router.replace('/dashboard/user');
         } catch (err) {
           console.error('Failed to process payment success', err);
