@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Art Hub - Client (Frontend) 🎨
 
-## Getting Started
+Art Hub is a modern, premium marketplace platform built specifically for artists and art collectors. The frontend is built using Next.js and Tailwind CSS, featuring a beautiful glassmorphic UI, dynamic bento-grid layouts, and a fully integrated Stripe payment system.
 
-First, run the development server:
+## 🚀 Live Demo
+[Deployed on Vercel](https://art-hub-client.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Key Features
+- **Modern UI/UX:** Premium glassmorphic design with subtle micro-animations and a dark/light mode toggle.
+- **Bento Grid Discoverability:** A stunning homepage layout for exploring featured artworks and top artists.
+- **Role-Based Dashboards:** 
+  - **Collectors:** Track purchase history and upgrade subscription tiers.
+  - **Artists:** Upload new artworks, track sales, and manage their portfolio.
+  - **Admins:** Oversee users and manage the platform.
+- **Seamless Payments:** Integrated with Stripe Checkout for secure 1-click purchases.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
+- **Framework:** Next.js (React)
+- **Styling:** Tailwind CSS + Vanilla CSS (for custom animations)
+- **Icons:** Lucide React
+- **Payments:** Stripe
+- **Image Hosting:** ImgBB API
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 💻 Local Development
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Clone and install dependencies:**
+   ```bash
+   git clone https://github.com/mahmudul194/Art-Hub-client.git
+   cd client
+   npm install
+   ```
 
-## Learn More
+2. **Set up Environment Variables:**
+   Create a `.env.local` file in the root directory and add the following:
+   ```env
+   NEXT_PUBLIC_IMGBB_API_KEY=your_imgbb_api_key_here
+   NEXT_PUBLIC_API_URL=http://localhost:5000/api
+   ```
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+   The application will be available at `http://localhost:3000`.
