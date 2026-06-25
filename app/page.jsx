@@ -9,15 +9,20 @@ import { ArrowRight, Star, Palette, Image as ImageIcon, Zap, Sparkles } from 'lu
 
 export default function Home() {
   const [featuredArtworks, setFeaturedArtworks] = useState([]);
+  const [topArtists, setTopArtists] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchFeatured = async () => {
       try {
-        const res = await api.get('/artworks/featured');
-        setFeaturedArtworks(res.data);
+        const [artworksRes, artistsRes] = await Promise.all([
+          api.get('/artworks/featured'),
+          api.get('/users/artists/top')
+        ]);
+        setFeaturedArtworks(artworksRes.data);
+        setTopArtists(artistsRes.data);
       } catch (error) {
-        console.error("Failed to fetch featured artworks", error);
+        console.error("Failed to fetch featured data", error);
       } finally {
         setLoading(false);
       }
@@ -30,6 +35,12 @@ export default function Home() {
     { name: 'Digital', icon: <ImageIcon className="w-8 h-8 text-blue-500" /> },
     { name: 'Photography', icon: <Zap className="w-8 h-8 text-pink-500" /> },
     { name: 'Sculpture', icon: <Sparkles className="w-8 h-8 text-orange-500" /> },
+  ];
+
+  const artistBgs = [
+    'from-purple-500/20 to-pink-500/20',
+    'from-blue-500/20 to-cyan-500/20',
+    'from-orange-500/20 to-yellow-500/20'
   ];
 
   return (
@@ -176,23 +187,19 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { name: 'Elena Rostova', sold: 42, img: 10, bg: 'from-purple-500/20 to-pink-500/20' },
-              { name: 'Marcus Chen', sold: 38, img: 11, bg: 'from-blue-500/20 to-cyan-500/20' },
-              { name: 'Sophia Reynolds', sold: 29, img: 12, bg: 'from-orange-500/20 to-yellow-500/20' }
-            ].map((artist, idx) => (
+            {topArtists.map((artist, idx) => (
               <motion.div 
-                key={artist.name}
+                key={artist._id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.15 }}
                 className="bento-card group overflow-hidden"
               >
-                <div className={`h-32 bg-gradient-to-r ${artist.bg} w-full relative`}>
+                <div className={`h-32 bg-gradient-to-r ${artistBgs[idx % artistBgs.length]} w-full relative`}>
                   <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 w-24 h-24">
                     <img 
-                      src={`https://i.pravatar.cc/150?img=${artist.img}`} 
+                      src={artist.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(artist.name)}&background=random`} 
                       alt={artist.name} 
                       className="w-full h-full object-cover rounded-2xl border-4 border-white dark:border-zinc-900 shadow-xl"
                     />
@@ -203,10 +210,12 @@ export default function Home() {
                 </div>
                 <div className="pt-16 pb-8 px-6 text-center">
                   <h3 className="text-2xl font-bold font-outfit text-slate-900 dark:text-white mb-1">{artist.name}</h3>
-                  <p className="text-purple-600 dark:text-purple-400 font-medium mb-6">{artist.sold} Masterpieces Sold</p>
-                  <button className="w-full py-3 rounded-xl border-2 border-slate-100 dark:border-zinc-800 text-slate-900 dark:text-white font-bold hover:bg-slate-50 dark:hover:bg-zinc-800 transition-all">
-                    Explore Gallery
-                  </button>
+                  <p className="text-purple-600 dark:text-purple-400 font-medium mb-6">{artist.soldCount || 0} Masterpieces Sold</p>
+                  <Link href={`/browse?artist=${artist.name}`}>
+                    <button className="w-full py-3 rounded-xl border-2 border-slate-100 dark:border-zinc-800 text-slate-900 dark:text-white font-bold hover:bg-slate-50 dark:hover:bg-zinc-800 transition-all">
+                      Explore Gallery
+                    </button>
+                  </Link>
                 </div>
               </motion.div>
             ))}
