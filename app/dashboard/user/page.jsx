@@ -5,9 +5,10 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import api from '../../../lib/api';
 import LoadingSpinner from '../../../components/LoadingSpinner';
 import { Crown, ShoppingBag, Settings, User as UserIcon, Camera, PackageOpen, CreditCard } from 'lucide-react';
+import { Suspense } from 'react';
 import Link from 'next/link';
 
-export default function UserDashboard() {
+function UserDashboardContent() {
   const { user, setUser, loading: authLoading } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -259,5 +260,13 @@ export default function UserDashboard() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function UserDashboard() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-zinc-950"><LoadingSpinner /></div>}>
+      <UserDashboardContent />
+    </Suspense>
   );
 }
