@@ -4,12 +4,41 @@ import { useAuth } from '../../context/AuthContext';
 import Link from 'next/link';
 import { Palette, Mail, Lock } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { login } = useAuth();
+  const { login, googleLogin } = useAuth();
+
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        const userInfo = await axios.get(
+          'https://www.googleapis.com/oauth2/v3/userinfo',
+          { headers: { Authorization: `Bearer ${tokenResponse.access_token}` } }
+        );
+
+        const googleData = {
+          name: userInfo.data.name,
+          email: userInfo.data.email,
+          googleId: userInfo.data.sub,
+          avatar: userInfo.data.picture,
+        };
+
+        await googleLogin(googleData);
+      } catch (err) {
+        console.error("Failed to fetch Google user info", err);
+        setError("Google Login failed");
+      }
+    },
+    onError: (error) => {
+      console.log('Login Failed:', error);
+      setError("Google Login failed");
+    }
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -109,6 +138,7 @@ export default function Login() {
           
           <button
             type="button"
+            onClick={() => handleGoogleLogin()}
             className="w-full flex justify-center items-center py-4 px-4 border-2 border-slate-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900 text-slate-700 dark:text-white hover:bg-slate-50 dark:hover:bg-zinc-800 transition-all font-bold hover:-translate-y-0.5"
           >
             <svg className="h-5 w-5 mr-3" viewBox="0 0 24 24">

@@ -56,7 +56,9 @@ export const AuthProvider = ({ children }) => {
     const res = await api.post('/auth/google', googleData);
     localStorage.setItem('token', res.data.token);
     setUser(res.data.user);
-    router.push('/');
+    if (res.data.user.role === 'artist') router.push('/dashboard/artist');
+    else if (res.data.user.role === 'admin') router.push('/dashboard/admin');
+    else router.push('/');
   };
 
   return (

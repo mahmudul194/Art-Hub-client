@@ -33,11 +33,11 @@ export default function ArtistDashboard() {
     const fetchData = async () => {
       try {
         const [artRes, salesRes] = await Promise.all([
-          api.get('/artworks', { params: { artistId: user.id, limit: 100 } }),
+          api.get('/artworks', { params: { artistId: user._id || user.id, limit: 100 } }),
           api.get('/payments/history')
         ]);
         
-        setArtworks(artRes.data.artworks.filter(a => a.artistId === user.id));
+        setArtworks(artRes.data.artworks.filter(a => a.artistId === (user._id || user.id)));
         setSales(salesRes.data);
       } catch (err) {
         console.error('Failed to fetch data', err);
