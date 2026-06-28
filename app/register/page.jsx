@@ -68,7 +68,7 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-zinc-950 relative overflow-hidden">
+    <div className="min-h-screen flex flex-col items-center justify-center pt-32 pb-12 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-zinc-950 relative overflow-x-hidden">
       {/* Decorative background */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-blob pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-blob animation-delay-2000 pointer-events-none" />
@@ -77,7 +77,7 @@ export default function Register() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4 }}
-        className="max-w-xl w-full space-y-8 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl p-10 rounded-3xl shadow-2xl z-10 border border-slate-200 dark:border-zinc-800"
+        className="max-w-xl w-full my-auto space-y-8 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl p-10 rounded-3xl shadow-2xl z-10 border border-slate-200 dark:border-zinc-800"
       >
         <div>
           <div className="flex justify-center">
