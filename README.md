@@ -1,44 +1,65 @@
-# Art Hub - Client (Frontend) 🎨
+# ArtHub - Client (Frontend)
 
-Art Hub is a modern, premium marketplace platform built specifically for artists and art collectors. The frontend is built using Next.js and Tailwind CSS, featuring a beautiful glassmorphic UI, dynamic bento-grid layouts, and a fully integrated Stripe payment system.
+ArtHub is a modern, premium web platform connecting talented artists with passionate art collectors. The frontend is built with **Next.js**, styled with **Tailwind CSS**, and fully responsive with support for beautiful dark and light themes.
 
-## 🚀 Live Demo
-[Deployed on Vercel](https://art-hub-client.vercel.app/)
+## 🚀 Key Features & Functionalities
 
-## ✨ Key Features
-- **Modern UI/UX:** Premium glassmorphic design with subtle micro-animations and a dark/light mode toggle.
-- **Bento Grid Discoverability:** A stunning homepage layout for exploring featured artworks and top artists.
-- **Role-Based Dashboards:** 
-  - **Collectors:** Track purchase history and upgrade subscription tiers.
-  - **Artists:** Upload new artworks, track sales, and manage their portfolio.
-  - **Admins:** Oversee users and manage the platform.
-- **Seamless Payments:** Integrated with Stripe Checkout for secure 1-click purchases.
+### 🎨 For Artists
+- **Dedicated Dashboard**: Manage your portfolio and track sales in one centralized location.
+- **Artwork Uploads**: Upload high-quality images of your artwork (integrated with Cloudinary).
+- **Subscription Tiers**: Different tiers (Free, Pro, Premium) that limit the number of artwork uploads to help scale your business.
+- **Sales Tracking**: View payment history and manage sold out items.
 
-## 🛠️ Tech Stack
-- **Framework:** Next.js (React)
-- **Styling:** Tailwind CSS + Vanilla CSS (for custom animations)
-- **Icons:** Lucide React
-- **Payments:** Stripe
-- **Image Hosting:** ImgBB API
+### 🖼️ For Collectors (Users)
+- **Interactive Gallery**: Browse thousands of original artworks with a beautiful, masonry-style grid layout.
+- **Secure Purchases**: Buy artwork securely using **Stripe** payment integration.
+- **Collector Dashboard**: Track your purchase history and discover top artists.
+- **Seamless Authentication**: Log in quickly using Email/Password or **Google OAuth** (includes automated role selection for new users).
 
-## 💻 Local Development
+### 🛡️ For Administrators
+- **Admin Dashboard**: Manage all users on the platform.
+- **Role Management**: Promote users to artists or admins, and enforce community guidelines.
 
-1. **Clone and install dependencies:**
+### ✨ UI / UX Highlights
+- **Stunning Animations**: Smooth micro-interactions and page transitions powered by **Framer Motion**.
+- **Dark Mode Support**: Flawless integration of `next-themes` allowing users to toggle between Light and Dark modes.
+- **Premium Aesthetic**: Glassmorphism effects, vibrant gradient blurs, and modern typography (`Outfit` and `Inter` fonts).
+- **Responsive Design**: Fully optimized for mobile, tablet, and desktop viewports.
+
+## 🛠️ Technology Stack
+
+- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Authentication**: JWT & `@react-oauth/google`
+- **Payments**: Stripe Elements
+- **HTTP Client**: Axios
+
+## ⚙️ Getting Started
+
+### Prerequisites
+Make sure you have Node.js and npm installed.
+
+### Environment Variables
+Create a `.env.local` file in the root of the client directory and add the following:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5000/api
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_google_oauth_client_id
+```
+
+### Installation
+1. Install dependencies:
    ```bash
-   git clone https://github.com/mahmudul194/Art-Hub-client.git
-   cd client
    npm install
    ```
-
-2. **Set up Environment Variables:**
-   Create a `.env.local` file in the root directory and add the following:
-   ```env
-   NEXT_PUBLIC_IMGBB_API_KEY=your_imgbb_api_key_here
-   NEXT_PUBLIC_API_URL=http://localhost:5000/api
-   ```
-
-3. **Run the development server:**
+2. Run the development server:
    ```bash
    npm run dev
    ```
-   The application will be available at `http://localhost:3000`.
+3. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 📦 Deployment
+The client is optimized to be easily deployed on [Vercel](https://vercel.com). Simply link your GitHub repository to Vercel and ensure all environment variables are added in the Vercel project settings.
