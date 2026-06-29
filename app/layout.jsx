@@ -4,6 +4,7 @@ import { AuthProvider } from '../context/AuthContext';
 import { ThemeProvider } from 'next-themes';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import RoleSelectionModal from '../components/RoleSelectionModal';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
                 {children}
               </main>
               <Footer />
+              <RoleSelectionModal />
             </AuthProvider>
           </GoogleOAuthProvider>
         </ThemeProvider>
